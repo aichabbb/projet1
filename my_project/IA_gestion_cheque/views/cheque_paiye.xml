@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+
+
+
+     <record id="cheque_view_payer_tree" model="ir.ui.view">
+        <field name="name">cheque_payer_view_tree</field>
+        <field name="model">cheque</field>
+        <field name="arch" type="xml">
+            <tree string="cheque_tree">
+                 <field name="type"/>
+                <field name="benifiaiere"/>
+                <field name="ville"/>
+                <field name="date_echeace"/>
+                <field name="proprietaire"/>
+                <field name="mantant"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cheque_kanban_payer_view" model="ir.ui.view">
+            <field name="name">kanban_payer_cheque</field>
+            <field name="model">cheque</field>
+            <field name="arch" type="xml">
+                <kanban class="o_res_partner_kanban">
+                   <field name="type"/>
+                  <field name="benifiaiere"/>
+                  <field name="ville"/>
+                  <field name="date_echeace"/>
+                  <field name="proprietaire"/>
+                  <field name="mantant"/>
+                 <field name="activity_state"/>
+                 <field name="activity_state"/>
+
+
+
+                <field name="activity_ids"/>
+                <field name="activity_ids"/>
+
+                    <templates>
+
+                            <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                           <div class="o_kanban_inline_block" style="margin-left:190px;">
+
+
+                                            <field name="activity_ids" widget="kanban_activity"/>
+                                            <field name="date_echeace"/>
+
+                                            <field name="activity_state"/>
+                                            <progressbar field="activity_state"
+                                                         colors='{"planned": "success", "today": "warning", "overdue": "danger"}'
+                                                         sum_field="planned_revenue"
+                                                         help="This bar allows to filter the opportunities based on scheduled activities."/>
+
+
+                                           </div>
+                                        <div style="margin-right:10px;">
+                                            <field name="sequence"></field>
+                                            <br></br>
+                                        </div>
+                                         <div class="oe_kanban_bottom_right">
+                                            <span class="float-right text-right">
+                                                <field name="state" widget="label_selection"
+                                                   options="{'classes': {'in_payé': 'accepter', 'cheque_a_lencaissent': 'primary', 'brouillon': 'warning','encaissé':'danger','deposé': 'traité'}}"/>
+
+
+                                            </span>
+                                        </div>
+
+
+
+
+                                    </strong>
+                                </div>
+                            </div>
+                        </t>
+
+                    </templates>
+                </kanban>
+            </field>
+    </record>
+   <record id="cheque_view_payer_form" model="ir.ui.view">
+            <field name="name">cheque_view_payer_form</field>
+            <field name="model">cheque</field>
+            <field name="arch" type="xml">
+                <form string="cheque_form">
+                    <header>
+                        <button name="valider_payer"  type="object" string="valider"
+                                class="oe_highlight"  attrs="{'invisible':[('state','not in',['brouillon'])]}"></button>
+
+                        <button  name="cheque_encaisement_payer" type="object" string="chèques a l'encaissement"
+                                class="oe_highlight" attrs="{'invisible':[('state','not in',['cheque_a_lencaissent'])]}" ></button>
+                        <button  name="paye_payer"  type="object" string="in payé"
+                                class="oe_highlight" attrs="{'invisible':[('state','not in',['cheque_a_lencaissent'])]}"></button>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="brouillon,encaissé,in_payé"/>
+                    </header>
+                    <sheet>
+                            <h1>
+                            <p style="width:100%;"> Chèque A Payer:
+                                <field name="sequence"/>
+
+
+                            </p>
+                        </h1>
+                        <group>
+                        <group>
+                             <field name="Nemero"  attrs="{'readonly':[('state','not in',['brouillon'])]}"/>
+                            <field name="type"  attrs="{'readonly':[('state','not in',['brouillon'])]}"/>
+                            <field name="proprietaire"  attrs="{'readonly':[('state','not in',['brouillon'])]}"/>
+
+                            <field name="ville"  attrs="{'readonly':[('state','not in',['brouillon'])]}"/>
+                            <field name="sequence" invisible="1"  ></field>
+
+                        </group>
+                        <group>
+                            <field name="date_echeace"  attrs="{'readonly':[('state','not in',['brouillon'])]}"/>
+
+                            <field name="benifiaiere"  attrs="{'readonly':[('state','not in',['brouillon'])]}"/>
+                            <field name="mantant"  attrs="{'readonly':[('state','not in',['brouillon'])]}"/>
+
+
+                            <field name="date_a" invisible="1"/>
+                        </group>
+                        </group>
+
+
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+         <record model="ir.actions.act_window" id="gestion_cheque_payer_action">
+            <field name="name">Cheque Payer</field>
+            <field name="res_model">cheque</field>
+            <field name="view_mode">kanban,tree,form</field>
+                <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('cheque_kanban_payer_view')}),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('cheque_view_payer_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('cheque_view_payer_form')})
+
+                ]"/>
+
+          <field name="domain">[('in_cheque', '=',True)]</field>
+          <field name="context">{'default_in_cheque': True}</field>
+
+
+
+    </record>
+    <menuitem name="A Payer" id="menu_3" parent="menu_1"
+                  action="gestion_cheque_payer_action" />
+    </data>
+</odoo>
+

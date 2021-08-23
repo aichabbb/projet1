@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="kanban_view_E" model="kanban">
+            <field name="nom">Reçu</field>
+            <field name="is_payer" eval="True"/>
+            <field name="is_recu" eval="False"/>
+
+
+        </record>
+
+        <record id="kanban_view_R" model="kanban">
+            <field name="nom"> A Payer</field>
+            <field name="is_payer" eval="False"/>
+            <field name="is_recu" eval="True"/>
+
+
+        </record>
+
+
+    </data>
+</odoo>

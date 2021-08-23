@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/account" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/bureau_ordre" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/common" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gamma12" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gestion-cheque" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gestion_ticket" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/nabilum" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/somap" vcs="Git" />
+  </component>
+</project>

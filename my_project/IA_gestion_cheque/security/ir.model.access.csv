@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cheque,cheque,model_cheque,,1,1,1,1
+access_kanban,kanban,model_kanban,,1,1,1,1
+
+
+
+

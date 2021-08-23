@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_reseption" model="ir.sequence">
+            <field name="name">Sequence</field>
+            <field name="code">bureau.cheque</field>
+            <field name="res_model">cheque</field>
+            <field name="prefix">CH</field>
+            <field name="implementation">standard</field>
+            <field name="padding">001</field>
+            <field name="number_increment">0001</field>
+
+
+        </record>
+
+
+
+    </data>
+</odoo>
